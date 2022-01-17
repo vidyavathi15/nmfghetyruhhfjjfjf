@@ -1,0 +1,38 @@
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.covid-19-heading {
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 24px;
+  font-family: Bree Serif;
+  font-weight: 800;
+  font-style: normal;
+}
+.india-heading {
+  color: blue;
+  font-size: 20px;
+  line-height: 24px;
+  font-family: Bree Serif;
+  font-weight: 800;
+}
+.footer-text {
+  color: #94a3b8;
+  font-size: 20px;
+  line-height: 24px;
+  font-family: 'Roboto';
+  font-weight: normal;
+}
+.icons-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.icon-sizes {
+  color: #cbd5e1;
+  font-size: 52px;
+  margin: 15px;
+}

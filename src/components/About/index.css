@@ -1,0 +1,48 @@
+.about-container {
+  background-color: #161625;
+  min-height: 100vh;
+  padding: 20px;
+}
+.responsive-about-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px;
+}
+.about-route-heading {
+  color: #f8fafc;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 64px;
+}
+.about-route-text {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: #94a3b8;
+}
+.about-route-vaccine-distribution-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  color: #e2e8f0;
+}
+.vaccine-about-route-text {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #e2e8f0;
+}
+.about-list-container {
+  padding-left: 0px;
+  display: flex;
+  flex-direction: column;
+}
