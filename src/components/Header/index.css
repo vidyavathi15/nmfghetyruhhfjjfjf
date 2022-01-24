@@ -6,11 +6,15 @@
   padding: 30px;
   padding-right: 95px;
   background-color: #1e1e30;
+  height: 80px;
+  width: 100vw;
 }
 
 @media screen and (max-width: 768px) {
   .header-container {
     padding: 15px;
+    height: 50px;
+    width: 100vw;
   }
 }
 .title-container {
@@ -24,7 +28,7 @@
   color: #ffffff;
   font-size: 20px;
   line-height: 24px;
-  font-family: Bree Serif;
+  font-family: 'Bree Serif';
   font-weight: 800;
   font-style: normal;
 }
@@ -50,4 +54,18 @@
   font-weight: bold;
   text-decoration: none;
   margin-left: 16px;
+}
+.add-button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  border-color: transparent;
+  margin-left: 185px;
+}
+
+@media screen and (min-width: 768px) {
+  .add-button {
+    display: none;
+  }
 }

@@ -1,16 +1,28 @@
 import {Component} from 'react'
 import {BsSearch} from 'react-icons/bs'
-// import {Link} from 'react-router-dom'
-// import Loader from 'react-loader-spinner'
+import {Link} from 'react-router-dom'
+import Loader from 'react-loader-spinner'
 // import StateTable from '../StateTable'
-// import CountryWideCasesCardGroup from '../CountryWideCasesCardGroup'
-// import StateWiseHeader from '../StateWiseHeader'
+
+import {AiFillCloseCircle} from 'react-icons/ai'
+
+import CountryWideCasesCardGroup from '../CountryWideCasesCardGroup'
+
+import StateWiseDetails from '../StateWiseDetails'
+
 import Header from '../Header'
 import Footer from '../Footer'
 
 import StateNameItem from '../StateNameItem'
 
 import './index.css'
+
+const apiStatusConstants = {
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  failure: 'FAILURE',
+  inProgress: 'IN_PROGRESS',
+}
 
 const statesList = [
   {
@@ -160,21 +172,58 @@ const statesList = [
 ]
 
 class Home extends Component {
-  state = {searchInput: '', countryData: {}}
+  state = {
+    searchInput: '',
+
+    countryData: [],
+
+    totalConfirmed: 0,
+
+    totalActive: 0,
+
+    totalRecovered: 0,
+
+    totalDeceased: 0,
+
+    apiStatus: apiStatusConstants.initial,
+    isNavContent: true,
+  }
 
   componentDidMount() {
     this.getCountryWiseData()
   }
 
-  getFormattedExistingStatesList = () => {
-    const formattedStates = statesList.map(each => ({
-      stateName: each.state_name,
-      stateCode: each.state_code,
-    }))
-    return formattedStates
+  getCountryWiseData = async () => {
+    this.setState({apiStatus: apiStatusConstants.inProgress})
+
+    const homeApiUrl = 'https://apis.ccbp.in/covid19-state-wise-data'
+
+    const response = await fetch(homeApiUrl)
+
+    const data = await response.json()
+
+    // console.log(data)
+    if (response.ok === true) {
+      this.getSuccessView(data)
+      this.setState({apiStatus: apiStatusConstants.success})
+    } else {
+      this.setState({apiStatus: apiStatusConstants.failure})
+    }
   }
 
-  getArray = data => {
+  onChangeSearchInput = event => {
+    this.setState({searchInput: event.target.value})
+  }
+
+  getSearchedResultText = countryData => {
+    const {searchInput} = this.state
+    const filteredList = countryData.filter(each =>
+      each.name.toLowerCase().includes(searchInput.toLowerCase()),
+    )
+    return filteredList
+  }
+
+  getSuccessView = data => {
     const list1 = []
 
     const keyNames = Object.keys(data)
@@ -191,12 +240,14 @@ class Home extends Component {
           ? data[keyName].meta.population
           : 0
 
+        const findStateName = statesList.find(
+          each => each.state_code === keyName,
+        )
+
         list1.push({
           stateCode: keyName,
-          name: statesList.find(
-            each => (each.state_code === keyName).state_name,
-          ),
-
+          name:
+            findStateName !== undefined ? findStateName.state_name : 'unknown',
           confirmed,
           deceased,
           recovered,
@@ -206,67 +257,186 @@ class Home extends Component {
         })
       }
     })
-    return list1
+
+    const totalConfirmedList = list1.map(each => each.confirmed)
+    const totalConfirmed = totalConfirmedList.reduce((a, b) => a + b)
+
+    const totalActiveList = list1.map(each => each.active)
+    const totalActive = totalActiveList.reduce((a, b) => a + b)
+
+    const totalRecoveredList = list1.map(each => each.recovered)
+    const totalRecovered = totalRecoveredList.reduce((a, b) => a + b)
+    const totalDeceasedList = list1.map(each => each.deceased)
+    const totalDeceased = totalDeceasedList.reduce((a, b) => a + b)
+
+    this.setState({
+      totalConfirmed,
+      totalActive,
+      totalRecovered,
+      totalDeceased,
+      countryData: list1,
+    })
   }
 
-  getCountryWiseData = async () => {
-    const homeApiUrl = 'https://apis.ccbp.in/covid19-state-wise-data'
+  changeToAscendingOrder = () => {
+    const {countryData} = this.state
 
-    const response = await fetch(homeApiUrl)
-
-    const data = await response.json()
-
-    // console.log(data)
-
-    const formattedArray = this.getArray(data, statesList)
-    this.setState({countryData: formattedArray})
+    countryData.sort((a, b) => {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
+        return -1
+      }
+      if (a.name.toLowerCase() > b.name.toLowerCase()) {
+        return 1
+      }
+      return 0
+    })
+    this.setState({countryData})
   }
 
-  onChangeSearchInput = event => {
-    this.setState({searchInput: event.target.value})
+  changeToDescendingOrder = () => {
+    const {countryData} = this.state
+    countryData.sort((a, b) => {
+      if (a.name.toLowerCase() > b.name.toLowerCase()) {
+        return -1
+      }
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
+        return 1
+      }
+      return 0
+    })
+
+    this.setState({countryData})
   }
 
-  getSearchedResultText = updatedStateList => {
-    const {searchInput} = this.state
-
-    const filteredStates = updatedStateList.filter(each =>
-      each.stateName.toLowerCase().includes(searchInput.toLowerCase()),
-    )
-
-    return filteredStates
+  onClickCloseButton = () => {
+    this.setState(prevState => ({isNavContent: !prevState.isNavContent}))
   }
 
-  render() {
-    const {searchInput, countryData} = this.state
-    console.log(countryData)
-    const updatedStateList = this.getFormattedExistingStatesList()
+  showOrHideNavContent = () => {
+    this.setState(prevState => ({isNavContent: !prevState.isNavContent}))
+  }
 
-    const searchedResults = this.getSearchedResultText(updatedStateList)
+  renderSuccessView = () => {
+    const {
+      searchInput,
+      totalConfirmed,
+      totalActive,
+      totalRecovered,
+      totalDeceased,
+      countryData,
+      isNavContent,
+    } = this.state
+
+    const searchedResults = this.getSearchedResultText(countryData)
 
     return (
       <div className="home-container">
-        <Header />
+        <Header showOrHideNavContent={this.showOrHideNavContent} />
+        <div>
+          {isNavContent ? (
+            ''
+          ) : (
+            <div className="nav-bar-mobile-container">
+              <div classNme="nav-items-container">
+                <Link to="/" className="nav-link">
+                  <p className="nav-mobile-home-text">Home</p>
+                </Link>
+                <Link to="/about" className="nav-link">
+                  <p className="nav-mobile-home-text">About</p>
+                </Link>
+              </div>
+              <button
+                type="button"
+                className="close-button-mobile"
+                onClick={this.onclickCloseButton}
+              >
+                <AiFillCloseCircle />
+              </button>
+            </div>
+          )}
+        </div>
+
         <div className="responsive-container">
           <div className="search-container">
             <BsSearch className="bs-search-icon" size={30} />
             <input
-              tye="search"
+              type="search"
               className="search-input"
               value={searchInput}
               placeholder="Enter the state"
               onChange={this.onChangeSearchInput}
             />
           </div>
+          {searchInput === '' ? null : (
+            <ul
+              className="state-wise-response-list"
+              testid="searchResultsUnorderedList"
+            >
+              {searchedResults.map(each => (
+                <StateNameItem key={each.stateCode} stateDetails={each} />
+              ))}
+            </ul>
+          )}
 
-          <ul className="state-wise-response-list">
-            {searchedResults.map(each => (
-              <StateNameItem key={each.stateCode} stateDetails={each} />
-            ))}
-          </ul>
+          <CountryWideCasesCardGroup
+            totalConfirmed={totalConfirmed}
+            totalActive={totalActive}
+            totalRecovered={totalRecovered}
+            totalDeceased={totalDeceased}
+          />
+
+          <StateWiseDetails
+            countryData={countryData}
+            changeToAscendingOrder={this.changeToAscendingOrder}
+            changeToDescendingOrder={this.changeToDescendingOrder}
+          />
         </div>
         <Footer />
       </div>
     )
+  }
+
+  renderFailureView = () => (
+    <div className="failure-home-container">
+      <img
+        className="failure-image"
+        src="https://res.cloudinary.com/dxv46yb6u/image/upload/v1637234267/Group_7485_vqh3vg.png"
+        alt="failure view`"
+      />
+      <h1 className="failure-home-heading">PAGE NOT FOUND</h1>
+      <p className="failure-home-text">
+        we’re sorry, the page you requested could not be found Please go back to
+        the homepage
+      </p>
+      <button type="button" className="home-failure-btn">
+        Home
+      </button>
+    </div>
+  )
+
+  renderInProgressView = () => (
+    <div className="covid-loader-container" testid="homeRouteLoader">
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
+    </div>
+  )
+
+  renderViews = () => {
+    const {apiStatus} = this.state
+
+    switch (apiStatus) {
+      case apiStatusConstants.success:
+        return this.renderSuccessView()
+      case apiStatusConstants.failure:
+        return this.renderFailureView()
+      case apiStatusConstants.inProgress:
+        return this.renderInProgressView()
+      default:
+        return null
+    }
+  }
+
+  render() {
+    return this.renderViews()
   }
 }
 

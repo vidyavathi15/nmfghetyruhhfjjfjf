@@ -1,0 +1,35 @@
+.each-district-list-item {
+  margin-right: 60px;
+  margin-bottom: 60px;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  width: 20%;
+}
+.district-item {
+  width: 99px;
+  height: 19px;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #94a3b8;
+  margin: 10px;
+}
+@media screen and (max-width: 768px) {
+  .district-item {
+    font-size: 12px;
+  }
+}
+.confirmed-count {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #94a3b8;
+}

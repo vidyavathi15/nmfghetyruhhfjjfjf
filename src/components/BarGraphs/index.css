@@ -1,0 +1,137 @@
+.spread-trends-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+
+  color: #cbd5e1;
+}
+
+.daily-spread-trends-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+  .spread-trends-heading {
+    font-size: 24px;
+    text-align: center;
+  }
+}
+.cumulative-and-daily-container {
+  display: flex;
+}
+.cumulative-container {
+  height: 60px;
+  left: 150px;
+  top: 1623px;
+
+  background: #1c1c2b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+.cumulative-text {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 32px;
+
+  text-align: center;
+
+  color: #64748b;
+}
+.daily-container {
+  width: 140px;
+  height: 60px;
+  left: 150px;
+  top: 1623px;
+
+  background: #1c1c2b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+.daily-text {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 32px;
+
+  text-align: center;
+
+  color: #e2e8f0;
+}
+.bar-graph-container {
+  background-color: transparent;
+  width: 1146px;
+  height: 328px;
+  margin-bottom: 90px;
+}
+
+@media screen and (max-width: 768px) {
+  .bar-graph-container {
+    display: none;
+  }
+}
+
+.bar-chart-mobile-container {
+  background-color: transparent;
+  width: 312px;
+  height: 231px;
+}
+
+@media screen and (min-width: 768px) {
+  .bar-chart-mobile-container {
+    display: none;
+  }
+}
+
+.failure-graph-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #e2e8f0;
+  font-family: Roboto;
+}
+.failed-img {
+  height: 50px;
+  width: 150px;
+}
+.failure-graph-text {
+  color: #94a3b8;
+}
+.failure-heading {
+  color: #cbd5e1;
+}
+.failure-button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  width: 40px;
+  height: 24px;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 8px;
+}
+.covid-loader-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

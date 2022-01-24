@@ -1,0 +1,56 @@
+.total-cases-card-container {
+  display: flex;
+  font-family: 'Roboto';
+  margin-top: 112px;
+
+  flex-direction: row;
+  justify-content: space-around;
+
+  flex-wrap: wrap;
+}
+
+.confirmed-image {
+  height: 40px;
+  width: 40px;
+  border: 1px solid #ff073a;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.confirmed-container {
+  color: #ff073a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+}
+
+.active-container {
+  color: #007bff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+}
+
+.recovered-container {
+  color: #28a745;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+}
+
+.deceased-container {
+  color: #6c757d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+}

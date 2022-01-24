@@ -1,0 +1,45 @@
+.confirmed-line-chart-container {
+  width: 1146px;
+  height: 328px;
+  color: #ff073a;
+
+  background-color: #331427;
+  border-radius: 12px;
+  display: flex;
+
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.confirmed-line-chart-mobile {
+  width: 300px;
+  height: 200px;
+  color: #ff073a;
+
+  background-color: #331427;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 768px) {
+  .confirmed-line-chart-container {
+    display: none;
+  }
+}
+@media screen and (min-width: 768px) {
+  .confirmed-line-chart-mobile {
+    display: none;
+  }
+}
+.line-chart-confirmed-data {
+  text-align: right;
+  margin-right: 30px;
+  color: #ff073a;
+}
+.line-confirm {
+  color: #ff073a;
+
+  background: #ff073a;
+}

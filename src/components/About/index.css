@@ -1,48 +1,179 @@
-.about-container {
-  background-color: #161625;
-  min-height: 100vh;
-  padding: 20px;
-}
-.responsive-about-container {
+.covid-loader-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
 }
-.about-route-heading {
-  color: #f8fafc;
+.failure-home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.failure-image-about {
+  height: 200px;
+  width: 350px;
+}
+.failure-home-heading-about {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+
+  text-align: center;
+
+  color: #cbd5e1;
+}
+.failure-home-text-about {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 32px;
+
+  text-align: center;
+
+  color: #94a3b8;
+}
+.about-failure-btn {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 8px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.about-app-container {
+  width: 1440px;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background-color: #161625;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+@media screen and (min-width: 768px) {
+  .about-app-container {
+    width: 100vw;
+  }
+}
+.mobile-nav-content-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: space-between;
+  color: #ffffff;
+  font-family: Roboto;
+  list-style-type: none;
+  margin-left: 32px;
+}
+.mobile-nav-content-items {
+  display: flex;
+  color: #ffffff;
+}
+.link-item {
+  text-decoration: none;
+  color: #ffffff;
+}
+.mobile-about-text {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #94a3b8;
+}
+.close-button {
+  background-color: #ffffff;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  margin-left: 174px;
+}
+.close-icon {
+  background: #ffffff;
+  height: 20px;
+  width: 20px;
+}
+.about-content {
+  margin-left: 20px;
+}
+@media screen and (min-width: 768px) {
+  .about-content {
+    margin-left: 30px;
+  }
+}
+.about-heading {
+  width: 129px;
+  height: 64px;
+
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
   font-size: 48px;
+
   line-height: 64px;
+
+  color: #f8fafc;
 }
-.about-route-text {
+@media screen and (min-width: 768px) {
+  .about-heading {
+    font-size: 30px;
+    line-height: 30px;
+  }
+}
+
+.last-update {
   font-family: 'Roboto';
   font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 24px;
-  color: #94a3b8;
+  font-weight: 500;
+  font-size: 48px;
+
+  line-height: 64px;
+
+  color: #f8fafc;
 }
-.about-route-vaccine-distribution-heading {
+@media screen and (min-width: 768px) {
+  .last-update {
+    font-size: 14px;
+  }
+}
+.distribution-para-about {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
   line-height: 36px;
+
   color: #e2e8f0;
 }
-.vaccine-about-route-text {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  color: #e2e8f0;
+@media screen and (min-width: 768px) {
+  .distribution-para-about {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
-.about-list-container {
+
+.faqs-list-container {
+  list-style-type: none;
+  margin-left: 0px;
   padding-left: 0px;
-  display: flex;
-  flex-direction: column;
+  margin-top: 20px;
 }
