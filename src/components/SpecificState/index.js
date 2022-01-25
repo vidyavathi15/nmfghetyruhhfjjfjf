@@ -4,7 +4,9 @@ import {Link} from 'react-router-dom'
 import {AiFillCloseCircle} from 'react-icons/ai'
 import Header from '../Header'
 import DistrictItem from '../DistrictItem'
+
 import BarGraphs from '../BarGraphs'
+
 import Footer from '../Footer'
 import './index.css'
 
@@ -167,6 +169,7 @@ class SpecificState extends Component {
     specificStateList: [],
     topDistrictsArray: [],
     apiStatus: apiStatusConstants.initial,
+    districtCasesCard: 'districtsConfirmed',
 
     isNavContent: true,
   }
@@ -183,56 +186,64 @@ class SpecificState extends Component {
     this.setState(prevState => ({isNavContent: !prevState.isNavContent}))
   }
 
-  onClickConfirmedCard = () => {
-    const {topDistrictsArray} = this.state
-    const updatedList1 = topDistrictsArray.map(each => ({
-      name: each.name,
-      number: each.districtsConfirmed,
-    }))
+  renderFinalDistrictsData = () => {
+    const {topDistrictsArray, districtsCasesCard} = this.state
 
-    this.setState({topDistrictsArray: updatedList1})
-  }
-
-  onClickActiveCard = () => {
-    const {topDistrictsArray} = this.state
-    const updatedList2 = topDistrictsArray.map(each => ({
-      name: each.name,
-      number: each.districtsActive,
-    }))
-
-    this.setState({topDistrictsArray: updatedList2})
-  }
-
-  onClickRecoveredCard = () => {
-    const {topDistrictsArray} = this.state
     const updatedList = topDistrictsArray.map(each => ({
+      number: each.districtsConfirmed === districtsCasesCard,
+
       name: each.name,
-      number: each.districtsRecovered,
     }))
 
+    updatedList.sort((a, b) => {
+      if (a.number > b.number) {
+        return -1
+      }
+      if (a.number < b.number) {
+        return 1
+      }
+      return 0
+    })
     this.setState({topDistrictsArray: updatedList})
   }
 
-  onClickDeceasedCard = () => {
-    const {topDistrictsArray} = this.state
-    const updatedList3 = topDistrictsArray.map(each => ({
-      name: each.name,
-      number: each.districtsDeceased,
-    }))
+  onClickConfirmedCard = () => {
+    this.setState(
+      {districtsCasesCard: 'districtsConfirmed'},
+      this.renderFinalDistrictsData,
+    )
+  }
 
-    this.setState({topDistrictsArray: updatedList3})
+  onClickActiveCard = () => {
+    this.setState(
+      {districtsCasesCard: 'districtsActive'},
+      this.renderFinalDistrictsData,
+    )
+  }
+
+  onClickRecoveredCard = () => {
+    this.setState(
+      {districtsCasesCard: 'districtsRecovered'},
+      this.renderFinalDistrictsData,
+    )
+  }
+
+  onClickDeceasedCard = () => {
+    this.setState(
+      {districtsCasesCard: 'districtsDeceased'},
+      this.renderFinalDistrictsData,
+    )
   }
 
   getSpecificStateData = async () => {
     this.setState({apiStatus: apiStatusConstants.inProgress})
-
-    //  const {districtsDefaultCases} = this.state
 
     const {match} = this.props
     const {params} = match
     const {stateCode} = params
 
     const apiUrl = 'https://apis.ccbp.in/covid19-state-wise-data'
+
     const response = await fetch(apiUrl)
     const data = await response.json()
     console.log(data)
@@ -252,7 +263,7 @@ class SpecificState extends Component {
           const deceased = total.deceased ? total.deceased : 0
           const lastUpdated = data[stateCode].meta.last_updated
 
-          const findingName = statesList.map(
+          const findingName = statesList.find(
             each => each.state_code === stateCode,
           )
 
@@ -297,26 +308,13 @@ class SpecificState extends Component {
       })
 
       this.setState({
-        apiStatus: apiStatusConstants.success,
         specificStateList: list2,
         topDistrictsArray: list1,
+        apiStatus: apiStatusConstants.success,
       })
     } else {
       this.setState({apiStatus: apiStatusConstants.failure})
     }
-  }
-
-  getDescendingOrder = topDistrictsArray => {
-    topDistrictsArray.sort((a, b) => {
-      if (a.number > b.number) {
-        return -1
-      }
-      if (a.number < b.number) {
-        return 1
-      }
-      return 0
-    })
-    return topDistrictsArray
   }
 
   renderSuccessView() {
@@ -324,7 +322,7 @@ class SpecificState extends Component {
       specificStateList,
       topDistrictsArray,
       isNavContent,
-      // districtsDefaultCases,
+      districtCasesCard,
     } = this.state
     const {
       name,
@@ -336,10 +334,7 @@ class SpecificState extends Component {
       deceased,
     } = specificStateList[0]
 
-    const descendingOrderOfDistricts = this.getDescendingOrder(
-      topDistrictsArray,
-    )
-    console.log(descendingOrderOfDistricts)
+    console.log(topDistrictsArray)
 
     return (
       <div className="specific-state-App-container">
@@ -388,11 +383,9 @@ class SpecificState extends Component {
               type="button"
               className="container-btn"
               onClick={this.onClickConfirmedCard}
+              testid="stateSpecificConfirmedCasesContainer"
             >
-              <div
-                className="specific-confirmed-container"
-                testid="stateSpecificConfirmedCasesContainer"
-              >
+              <div className="specific-confirmed-container">
                 <p className="specific-state-confirmed-heading">Confirmed</p>
                 <div className="confirmed-image">
                   <img
@@ -410,10 +403,7 @@ class SpecificState extends Component {
               onClick={this.onClickActiveCard}
               testid="stateSpecificActiveCasesContainer"
             >
-              <div
-                className="specific-active-container"
-                testid="stateSpecificActiveCasesContainer"
-              >
+              <div className="specific-active-container">
                 <p className="specific-state-active-heading">Active</p>
                 <img
                   src="https://res.cloudinary.com/dxv46yb6u/image/upload/v1636638409/protection_1active_yjy72v.png"
@@ -426,11 +416,9 @@ class SpecificState extends Component {
               type="button"
               className="container-btn"
               onClick={this.onClickRecoveredCard}
+              testid="stateSpecificRecoveredCasesContainer"
             >
-              <div
-                className="specific-state-recovered-container"
-                testid="stateSpecificRecoveredCasesContainer"
-              >
+              <div className="specific-state-recovered-container">
                 <p className="specific-state-recovered-heading">Recovered</p>
                 <img
                   src="https://res.cloudinary.com/dxv46yb6u/image/upload/v1636639291/recovered_1_glek4z.png"
@@ -444,11 +432,9 @@ class SpecificState extends Component {
               type="button"
               className="container-btn"
               onClick={this.onClickDeceasedCard}
+              testid="stateSpecificDeceasedCasesContainer"
             >
-              <div
-                className="specific-state-deceased-container"
-                testid="stateSpecificDeceasedCasesContainer"
-              >
+              <div className="specific-state-deceased-container">
                 <p className="specific-state-deceased-heading">Deceased</p>
                 <img
                   src="https://res.cloudinary.com/dxv46yb6u/image/upload/v1636639364/breathing_1_hst8zn.png"
@@ -458,13 +444,18 @@ class SpecificState extends Component {
               </div>
             </button>
           </div>
-          <h1 className="specific-state-top-districts">Top Districts</h1>
-          <ul className="districts-list" testid="topDistrictsUnorderedList">
-            {descendingOrderOfDistricts.map(each => (
-              <DistrictItem key={each.name} districtDetails={each} />
-            ))}
-          </ul>
-          <BarGraphs />
+          <div className="top-districts">
+            <h1 className="specific-state-top-districts">Top Districts</h1>
+            <ul className="districts-list" testid="topDistrictsUnorderedList">
+              {topDistrictsArray.map(each => (
+                <DistrictItem key={each.name} districtDetails={each} />
+              ))}
+            </ul>
+          </div>
+
+          <div className="bar-graphs-container">
+            <BarGraphs districtCasesCard={districtCasesCard} />
+          </div>
         </div>
         <Footer />
       </div>

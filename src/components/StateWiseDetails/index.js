@@ -21,21 +21,17 @@ const StateWiseDetails = props => {
             type="button"
             className="order-buttons"
             testid="ascendingSort"
+            onClick={onClickAscendingButton}
           >
-            <FcGenericSortingAsc
-              className="sort-icons"
-              onClick={onClickAscendingButton}
-            />
+            <FcGenericSortingAsc className="sort-icons" />
           </button>
           <button
             type="button"
             className="order-buttons"
             testid="descendingSort"
+            onClick={onClickDescendingButton}
           >
-            <FcGenericSortingDesc
-              className="sort-icons"
-              onClick={onClickDescendingButton}
-            />
+            <FcGenericSortingDesc className="sort-icons" />
           </button>
         </div>
 

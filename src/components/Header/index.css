@@ -6,6 +6,7 @@
   padding: 30px;
   padding-right: 95px;
   background-color: #1e1e30;
+
   height: 80px;
   width: 100vw;
 }
@@ -68,4 +69,17 @@
   .add-button {
     display: none;
   }
+}
+.theme-button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+.theme-img {
+  height: 40px;
+  width: 40px;
+}
+.theme-and-link-container {
+  display: flex;
 }

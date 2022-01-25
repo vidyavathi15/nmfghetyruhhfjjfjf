@@ -319,3 +319,14 @@
   border: none;
   background-color: transparent;
 }
+.bar-graphs-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.top-districts {
+  display: flex;
+  flex-direction: column;
+  margin-left: 25px;
+}

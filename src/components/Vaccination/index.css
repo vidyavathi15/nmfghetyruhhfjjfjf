@@ -1,0 +1,171 @@
+.vaccinationContainer {
+  background-color: black;
+
+  min-height: 100vh;
+}
+.responsive-container {
+  padding: 10px;
+}
+.home-state-name-container {
+  display: flex;
+  align-items: center;
+}
+.home-state-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+
+  color: #cbd5e1;
+}
+.total-sites {
+  display: flex;
+  align-items: center;
+}
+.sites-text-details {
+  display: flex;
+  flex-direction: column;
+}
+.sites-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.sites-total-count {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.sites-pvt-govt {
+  display: flex;
+  align-items: center;
+}
+.govt-container {
+  display: flex;
+  flex-direction: column;
+}
+.govt-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.govt-total {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.pvt-container {
+  display: flex;
+  flex-direction: column;
+}
+.pvt-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.pvt-total {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.doses-total {
+  display: flex;
+  align-items: center;
+}
+.sites-text-details {
+  display: flex;
+}
+.sites-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.doses-total-count {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.doses-one-two {
+  display: flex;
+  align-items: center;
+}
+.dose-one-container {
+  display: flex;
+  flex-direction: column;
+}
+.dose-one-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.dose-one-total {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.dose-two-container {
+  display: flex;
+  flex-direction: column;
+}
+.dose-two-heading {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.dose-two-total {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 24px;
+
+  color: #cbd5e1;
+}
+.ttwo-containers {
+  display: flex;
+}

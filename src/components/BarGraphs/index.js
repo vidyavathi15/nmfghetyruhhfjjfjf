@@ -32,7 +32,6 @@ class BarGraphs extends Component {
     recoveredBarData: [],
     deceasedBarData: [],
     testedBarData: [],
-    // vaccineBarData: [],
   }
 
   componentDidMount() {
@@ -45,7 +44,7 @@ class BarGraphs extends Component {
     const {params} = match
     const {stateCode} = params
 
-    const apiUrl = `https://apis.ccbp.in/covid19-timelines-data/${stateCode}`
+    const apiUrl = 'https://apis.ccbp.in/covid19-timelines-data'
     const options = {
       method: 'GET',
     }
@@ -148,32 +147,8 @@ class BarGraphs extends Component {
     }
   }
 
-  getInstanceData = districtsDefaultCases => {
-    const {
-      confirmedBarData,
-      recoveredBarData,
-      deceasedBarData,
-      activeBarData,
-    } = this.state
-
-    let resultData = ''
-    if (districtsDefaultCases === 'confirmed') {
-      resultData = confirmedBarData
-    } else if (districtsDefaultCases === 'active') {
-      resultData = activeBarData
-    } else if (districtsDefaultCases === 'recovered') {
-      resultData = recoveredBarData
-    } else {
-      resultData = deceasedBarData
-    }
-
-    return resultData
-  }
-
   renderBarGraphData = () => {
     const {confirmedBarData} = this.state
-    const {districtsDefaultCases} = this.props
-    const barGraphDisplayData = this.getInstanceData(districtsDefaultCases)
 
     const dataFormatter = number => {
       if (number > 1000) {
@@ -188,7 +163,7 @@ class BarGraphs extends Component {
           <BarChart
             width={800}
             height={450}
-            data={barGraphDisplayData}
+            data={confirmedBarData}
             margin={{
               top: 5,
             }}
@@ -269,7 +244,6 @@ class BarGraphs extends Component {
       recoveredBarData,
       activeBarData,
       testedBarData,
-      // vaccineBarData,
     } = this.state
     return (
       <div className="daily-spread-trends-container">
