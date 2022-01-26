@@ -1,10 +1,13 @@
 import {Component} from 'react'
 import {AiOutlineHome} from 'react-icons/ai'
+import Select from 'react-select'
 
 import Header from '../Header'
 import Footer from '../Footer'
 
 import VaccinationByAge from '../VaccinationByAge'
+
+import './index.css'
 
 // import VaccinationByCategory from '../VaccinationByCategory'
 
@@ -18,6 +21,8 @@ class Vaccination extends Component {
     injectionCategory: [],
     totalSitesData: {},
     vaccinationByDoses: [],
+    stateInput: '',
+    districtInput: '',
   }
 
   componentDidMount() {
@@ -122,6 +127,14 @@ class Vaccination extends Component {
     })
   }
 
+  onChangeSelectState = event => {
+    this.setState({stateInput: event.target.value})
+  }
+
+  onChangeDistrict = event => {
+    this.setState({districtInput: event.target.value})
+  }
+
   render() {
     const {
       statesData,
@@ -132,6 +145,8 @@ class Vaccination extends Component {
       injectionCategory,
       totalSitesData,
       vaccinationByDoses,
+      stateInput,
+      districtInput,
     } = this.state
     console.log(statesData)
     console.log(vaccineDistrictsArray)
@@ -149,13 +164,38 @@ class Vaccination extends Component {
       <div className="vaccinationContainer">
         <Header />
         <div className="responsive-container">
-          <div className="home-state-name-container">
-            <AiOutlineHome color="#ffffff" />
-            <h1 className="home-state-heading">{}</h1>
+          <div className="logo-select-container">
+            <div className="home-state-name-container">
+              <AiOutlineHome color="#ffffff" size="5%" />
+              <h1 className="home-state-heading">India/Andhra Pradesh</h1>
+            </div>
+            <div className="select-state-and-district-container">
+              <div className="state-container">
+                <Select
+                  value={stateInput}
+                  options={statesData}
+                  onChange={this.onChangeSelectState}
+                  className="select-color"
+                />
+              </div>
+              <div className="districts-select">
+                <Select
+                  value={districtInput}
+                  onChange={this.onChangeDistrict}
+                  className="select-color"
+                >
+                  {vaccineDistrictsArray.map(each => (
+                    <option key={each.districtId}>{each.districtName}</option>
+                  ))}
+                </Select>
+              </div>
+            </div>
           </div>
+
           <div className="ttwo-containers">
             <div className="total-sites">
               <img
+                className="section-img"
                 src="https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643107734/Group_7476_f8tk50.png"
                 alt="injection img"
               />
@@ -177,6 +217,7 @@ class Vaccination extends Component {
 
             <div className="doses-total">
               <img
+                className="section-img"
                 src="https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643107490/Group_7475_fshky4.png"
                 alt="doses img"
               />

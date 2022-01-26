@@ -55,18 +55,6 @@ class BarGraphs extends Component {
     if (response.ok === true) {
       const datesArray = Object.keys(jsonData[stateCode].dates)
 
-      // const lastUpdatedDate = datesArray[datesArray.length - 1]
-
-      /* const formatterDate = date => {
-        const dateFormatted = new Date(date)
-        const stringDate = dateFormatted.getDate()
-        const stringMonth = dateFormatted.getMonth()
-
-        const newDate = stringDate + stringMonth
-
-        return newDate
-      }
-      */
       const confirmedBarGraphData = datesArray.map(date => ({
         resultDate: date,
         count: jsonData[stateCode].dates[date].total.confirmed,

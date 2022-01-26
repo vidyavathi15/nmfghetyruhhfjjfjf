@@ -186,14 +186,62 @@ class SpecificState extends Component {
     this.setState(prevState => ({isNavContent: !prevState.isNavContent}))
   }
 
-  renderFinalDistrictsData = () => {
-    const {topDistrictsArray, districtsCasesCard} = this.state
-
-    const updatedList = topDistrictsArray.map(each => ({
-      number: each.districtsConfirmed === districtsCasesCard,
-
+  renderDeceasedCases = () => {
+    const {topDistrictsArray} = this.state
+    const finalList3 = topDistrictsArray.map(each => ({
       name: each.name,
+      number: each.districtsDeceased,
     }))
+    return finalList3
+  }
+
+  renderRecoveredCases = () => {
+    const {topDistrictsArray} = this.state
+    const finalList2 = topDistrictsArray.map(each => ({
+      name: each.name,
+      number: each.districtsRecovered,
+    }))
+    return finalList2
+  }
+
+  renderActiveCases = () => {
+    const {topDistrictsArray} = this.state
+    const finalList1 = topDistrictsArray.map(each => ({
+      name: each.name,
+      number: each.districtsActive,
+    }))
+    console.log(finalList1)
+    return finalList1
+  }
+
+  renderConfirmedCases = () => {
+    const {topDistrictsArray} = this.state
+    const finalList = topDistrictsArray.map(each => ({
+      name: each.name,
+      number: each.districtsConfirmed,
+    }))
+    return finalList
+  }
+
+  getFilteredDataAccToVariable = () => {
+    const {districtsCasesCard} = this.state
+    switch (districtsCasesCard) {
+      case districtsCasesCard === 'districtsConfirmed':
+        return this.renderConfirmedCases()
+      case districtsCasesCard === 'districtsActive':
+        return this.renderActiveCases()
+      case districtsCasesCard === 'districtsRecovered':
+        return this.renderRecoveredCases()
+      case districtsCasesCard === 'districtsDeceased':
+        return this.renderDeceasedCases()
+      default:
+        return null
+    }
+  }
+
+  renderFinalDistrictsData = () => {
+    const updatedList = this.getFilteredDataAccToVariable()
+    console.log(updatedList)
 
     updatedList.sort((a, b) => {
       if (a.number > b.number) {
@@ -244,7 +292,11 @@ class SpecificState extends Component {
 
     const apiUrl = 'https://apis.ccbp.in/covid19-state-wise-data'
 
-    const response = await fetch(apiUrl)
+    const options = {
+      method: 'GET',
+    }
+
+    const response = await fetch(apiUrl, options)
     const data = await response.json()
     console.log(data)
 
