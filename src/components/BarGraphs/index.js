@@ -128,15 +128,56 @@ class BarGraphs extends Component {
         recoveredBarData: latestUpdatedRecoveredBarGraphData,
         deceasedBarData: latestUpdatedDeceasedBarGraphsData,
         testedBarData: latestUpdatedTestedBarGraphsData,
-        // vaccineBarData: latestUpdatedVaccinatedData,
       })
     } else {
       this.setState({apiStatus: apiStatusConstants.failure})
     }
   }
 
+  getUpdatedLineData = () => {
+    const {districtsCasesCard} = this.props
+    const {
+      confirmedBarData,
+      activeBarData,
+      deceasedBarData,
+      recoveredBarData,
+    } = this.state
+    let updatedLineChart = []
+    switch (true) {
+      case districtsCasesCard === 'districtsConfirmed':
+        updatedLineChart = confirmedBarData
+        break
+      case districtsCasesCard === 'districtsRecovered':
+        updatedLineChart = recoveredBarData
+        break
+      case districtsCasesCard === 'districtsDeceased':
+        updatedLineChart = deceasedBarData
+        break
+      case districtsCasesCard === 'districtsActive':
+        updatedLineChart = activeBarData
+        break
+      default:
+        return null
+    }
+    return updatedLineChart
+  }
+
+  getDescendingOrderList = () => {
+    const updatedLineData = this.getUpdatedLineData()
+    updatedLineData.sort((a, b) => {
+      if (a.count > b.count) {
+        return -1
+      }
+      if (a.count < b.count) {
+        return 1
+      }
+      return 0
+    })
+    return updatedLineData
+  }
+
   renderBarGraphData = () => {
-    const {confirmedBarData} = this.state
+    const descendingOrderList = this.getDescendingOrderList()
 
     const dataFormatter = number => {
       if (number > 1000) {
@@ -151,7 +192,7 @@ class BarGraphs extends Component {
           <BarChart
             width={800}
             height={450}
-            data={confirmedBarData}
+            data={descendingOrderList}
             margin={{
               top: 5,
             }}
@@ -171,7 +212,7 @@ class BarGraphs extends Component {
                 paddingTop: 20,
                 textAlign: 'center',
                 fontSize: 12,
-                color: '#9A0E31',
+                color: '#ffffff',
                 fontFamily: 'Roboto',
               }}
             />
@@ -184,19 +225,19 @@ class BarGraphs extends Component {
               radius={[10, 10, 0, 0]}
               label={{
                 position: 'top',
-                color: '#9A0E31',
-                stroke: '#9A0E31',
+                color: '#ffffff',
+                stroke: '#ffffff',
               }}
             />
           </BarChart>
         </div>
 
         <div className="bar-chart-mobile-container">
-          <BarChart width={300} height={220} data={confirmedBarData}>
+          <BarChart width={300} height={220} data={descendingOrderList}>
             <XAxis
               dataKey="resultDate"
               tick={{
-                stroke: '#9A0E31',
+                stroke: '#ffffff',
                 strokeWidth: 0.5,
                 fontSize: 15,
                 fontFamily: 'Roboto',
@@ -217,7 +258,7 @@ class BarGraphs extends Component {
               dataKey="count"
               fill="#9A0E31"
               className="bar"
-              label={{position: 'top', color: 'white', stroke: '#9A0E31'}}
+              label={{position: 'top', color: '#ffffff', stroke: '#ffffff'}}
             />
           </BarChart>
         </div>
@@ -264,8 +305,8 @@ class BarGraphs extends Component {
       />
       <h1 className="failure-heading">PAGE NOT FOUND</h1>
       <p className="failure-graph-text">
-        We&aposre sorry, the page you requested could not be found please go
-        back to the home page
+        We are sorry, the page you requested could not be found please go back
+        to the home page
       </p>
       <button type="button" className="failure-button">
         Home

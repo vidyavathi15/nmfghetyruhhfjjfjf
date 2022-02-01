@@ -169,9 +169,10 @@ class SpecificState extends Component {
     specificStateList: [],
     topDistrictsArray: [],
     apiStatus: apiStatusConstants.initial,
-    districtCasesCard: 'districtsConfirmed',
-
+    districtsCasesCard: 'districtsConfirmed',
     isNavContent: true,
+    standardList: [],
+    isInitialCases: true,
   }
 
   componentDidMount() {
@@ -187,8 +188,8 @@ class SpecificState extends Component {
   }
 
   renderDeceasedCases = () => {
-    const {topDistrictsArray} = this.state
-    const finalList3 = topDistrictsArray.map(each => ({
+    const {standardList} = this.state
+    const finalList3 = standardList.map(each => ({
       name: each.name,
       number: each.districtsDeceased,
     }))
@@ -196,8 +197,8 @@ class SpecificState extends Component {
   }
 
   renderRecoveredCases = () => {
-    const {topDistrictsArray} = this.state
-    const finalList2 = topDistrictsArray.map(each => ({
+    const {standardList} = this.state
+    const finalList2 = standardList.map(each => ({
       name: each.name,
       number: each.districtsRecovered,
     }))
@@ -205,18 +206,17 @@ class SpecificState extends Component {
   }
 
   renderActiveCases = () => {
-    const {topDistrictsArray} = this.state
-    const finalList1 = topDistrictsArray.map(each => ({
+    const {standardList} = this.state
+    const finalList1 = standardList.map(each => ({
       name: each.name,
       number: each.districtsActive,
     }))
-    console.log(finalList1)
     return finalList1
   }
 
   renderConfirmedCases = () => {
-    const {topDistrictsArray} = this.state
-    const finalList = topDistrictsArray.map(each => ({
+    const {standardList} = this.state
+    const finalList = standardList.map(each => ({
       name: each.name,
       number: each.districtsConfirmed,
     }))
@@ -225,15 +225,20 @@ class SpecificState extends Component {
 
   getFilteredDataAccToVariable = () => {
     const {districtsCasesCard} = this.state
-    switch (districtsCasesCard) {
+
+    switch (true) {
       case districtsCasesCard === 'districtsConfirmed':
         return this.renderConfirmedCases()
+
       case districtsCasesCard === 'districtsActive':
         return this.renderActiveCases()
+
       case districtsCasesCard === 'districtsRecovered':
         return this.renderRecoveredCases()
+
       case districtsCasesCard === 'districtsDeceased':
         return this.renderDeceasedCases()
+
       default:
         return null
     }
@@ -257,29 +262,67 @@ class SpecificState extends Component {
 
   onClickConfirmedCard = () => {
     this.setState(
-      {districtsCasesCard: 'districtsConfirmed'},
+      {districtsCasesCard: 'districtsConfirmed', isInitialCases: false},
       this.renderFinalDistrictsData,
     )
   }
 
   onClickActiveCard = () => {
     this.setState(
-      {districtsCasesCard: 'districtsActive'},
+      {districtsCasesCard: 'districtsActive', isInitialCases: false},
       this.renderFinalDistrictsData,
     )
   }
 
   onClickRecoveredCard = () => {
     this.setState(
-      {districtsCasesCard: 'districtsRecovered'},
+      {districtsCasesCard: 'districtsRecovered', isInitialCases: false},
       this.renderFinalDistrictsData,
     )
   }
 
   onClickDeceasedCard = () => {
     this.setState(
-      {districtsCasesCard: 'districtsDeceased'},
+      {districtsCasesCard: 'districtsDeceased', isInitialCases: false},
       this.renderFinalDistrictsData,
+    )
+  }
+
+  getInitialDescendingOrderList = updatedList4 => {
+    updatedList4.sort((a, b) => {
+      if (a.number > b.number) {
+        return -1
+      }
+      if (a.number < b.number) {
+        return 1
+      }
+      return 0
+    })
+
+    return updatedList4
+  }
+
+  renderInitialCases = () => {
+    const {standardList} = this.state
+
+    const updatedList4 = standardList.map(each => ({
+      name: each.name,
+      number: each.districtsConfirmed,
+    }))
+
+    const initialDescendingOrderList = this.getInitialDescendingOrderList(
+      updatedList4,
+    )
+
+    return (
+      <ul className="initial-ul-container" testid="topDistrictsUnorderedList">
+        {initialDescendingOrderList.map(each => (
+          <li className="initial-list-item" key={each.name}>
+            <p className="initial-count">{each.number}</p>
+            <h1 className="initial-name">{each.name}</h1>
+          </li>
+        ))}
+      </ul>
     )
   }
 
@@ -362,6 +405,7 @@ class SpecificState extends Component {
       this.setState({
         specificStateList: list2,
         topDistrictsArray: list1,
+        standardList: list1,
         apiStatus: apiStatusConstants.success,
       })
     } else {
@@ -369,12 +413,38 @@ class SpecificState extends Component {
     }
   }
 
+  getChangingColor = () => {
+    const {districtsCasesCard} = this.state
+    let classNames = ''
+    switch (true) {
+      case districtsCasesCard === 'districtsConfirmed':
+        classNames = 'confirmed-cases-class-name'
+        break
+      case districtsCasesCard === 'districtsRecovered':
+        classNames = 'recovered-cases-class-name'
+        break
+      case districtsCasesCard === 'districtsDeceased':
+        classNames = 'deceased-cases-class-name'
+        break
+      case districtsCasesCard === 'districtsActive':
+        classNames = 'active-cases-class-name'
+        break
+      default:
+        return null
+    }
+    return classNames
+  }
+
   renderSuccessView() {
     const {
       specificStateList,
-      topDistrictsArray,
+
+      districtsCasesCard,
+
       isNavContent,
-      districtCasesCard,
+
+      topDistrictsArray,
+      isInitialCases,
     } = this.state
     const {
       name,
@@ -387,6 +457,8 @@ class SpecificState extends Component {
     } = specificStateList[0]
 
     console.log(topDistrictsArray)
+
+    const changingColor = this.getChangingColor()
 
     return (
       <div className="specific-state-App-container">
@@ -497,16 +569,20 @@ class SpecificState extends Component {
             </button>
           </div>
           <div className="top-districts">
-            <h1 className="specific-state-top-districts">Top Districts</h1>
-            <ul className="districts-list" testid="topDistrictsUnorderedList">
-              {topDistrictsArray.map(each => (
-                <DistrictItem key={each.name} districtDetails={each} />
-              ))}
-            </ul>
+            <h1 className={changingColor}>Top Districts</h1>
+            {isInitialCases ? (
+              this.renderInitialCases()
+            ) : (
+              <ul className="districts-list" testid="topDistrictsUnorderedList">
+                {topDistrictsArray.map(each => (
+                  <DistrictItem key={each.name} districtDetails={each} />
+                ))}
+              </ul>
+            )}
           </div>
 
           <div className="bar-graphs-container">
-            <BarGraphs districtCasesCard={districtCasesCard} />
+            <BarGraphs districtsCasesCard={districtsCasesCard} />
           </div>
         </div>
         <Footer />
