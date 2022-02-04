@@ -341,7 +341,6 @@ class SpecificState extends Component {
 
     const response = await fetch(apiUrl, options)
     const data = await response.json()
-    console.log(data)
 
     if (response.ok === true) {
       const keyNames = Object.keys(data[stateCode])
@@ -415,24 +414,195 @@ class SpecificState extends Component {
 
   getChangingColor = () => {
     const {districtsCasesCard} = this.state
-    let classNames = ''
+    let changedClassNames = ''
     switch (true) {
       case districtsCasesCard === 'districtsConfirmed':
-        classNames = 'confirmed-cases-class-name'
+        changedClassNames = 'confirmed-cases-class-name'
         break
       case districtsCasesCard === 'districtsRecovered':
-        classNames = 'recovered-cases-class-name'
+        changedClassNames = 'recovered-cases-class-name'
         break
       case districtsCasesCard === 'districtsDeceased':
-        classNames = 'deceased-cases-class-name'
+        changedClassNames = 'deceased-cases-class-name'
         break
       case districtsCasesCard === 'districtsActive':
-        classNames = 'active-cases-class-name'
+        changedClassNames = 'active-cases-class-name'
         break
       default:
         return null
     }
-    return classNames
+    return changedClassNames
+  }
+
+  getChangingImageUrl = name => {
+    let imageUrl = ''
+
+    switch (true) {
+      case name === 'Telangana':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643872047/Group_7351_j6ct5v.png'
+        break
+      case name === 'Maharashtra':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643872290/Group_7350_ckbsqm.png'
+        break
+      case name === 'Andaman and Nicobar Islands':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643874993/Group_7362_wrzf5e.png'
+        break
+
+      case name === 'Chandigarh':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643875244/Group_7361_jzszou.png'
+        break
+      case name === 'Ladakh':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643875459/Group_7363_pvlnqj.png'
+
+        break
+      case name === 'Delhi':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643876600/Group_7358_mjy13c.png'
+
+        break
+      case name === 'Puducherry':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643876720/Group_7360_xc7ssb.png'
+
+        break
+      case name === 'Lakshadweep':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643876917/Group_7359_sg3woe.png'
+        break
+
+      case name === 'Dadra and Nagar Haveli and Daman and Diu':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643877098/Group_7357_vrkl7m.png'
+        break
+
+      case name === 'Jammu and Kashmir':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643877254/Group_7328_hkdvcr.png'
+        break
+      case name === 'Arunachal Pradesh':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643880642/Group_7340_to8tdf.png'
+        break
+      case name === 'Himachal Pradesh':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643877489/Group_7364_mcjbuc.png'
+        break
+      case name === 'Punjab':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643879696/Group_7330_imeei5.png'
+        break
+      case name === 'Uttarakhand':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643879768/Group_7331_qx2pev.png'
+        break
+
+      case name === 'Haryana':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643879838/Group_7332_qpslgc.png'
+        break
+
+      case name === 'Rajasthan':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643879894/Group_7333_f5sutf.png'
+        break
+      case name === 'Uttar Pradesh':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643879955/Group_7334_zy5me9.png'
+
+        break
+      case name === 'Bihar':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643880039/Group_7335_aduwi2.png'
+
+        break
+
+      case name === 'Madhya Pradesh':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643880115/Group_7336_wma0z8.png'
+        break
+
+      case name === 'Gujarat':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643880184/Group_7337_hqncg7.png'
+        break
+
+      case name === 'JharKhand':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643880265/Group_7342_qo0k2a.png'
+        break
+
+      case name === 'West Bengal':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643880489/Group_7343_h63wk3.png'
+        break
+      case name === 'Sikkim':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643880571/Group_7338_ksq08w.png'
+        break
+      case name === 'Assam':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643880805/Group_7341_dbc69c.png'
+        break
+
+      case name === 'Goa':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643880870/Group_7349_jgesss.png'
+        break
+
+      case name === 'Meghalaya':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643880934/Group_7344_wgv7n1.png'
+        break
+      case name === 'Nagaland':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643881037/Group_7345_z7rgkw.png'
+        break
+      case name === 'Manipur':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643881097/Group_7346_a0rvvt.png'
+        break
+
+      case name === 'Mizoram':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643881154/Group_7347_wqkrvh.png'
+        break
+
+      case name === 'Tripura':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643881212/Group_7352_bhmhl1.png'
+        break
+      case name === 'Chhattishgarh':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643881271/Group_7353_jrndys.png'
+        break
+      case name === 'Odisha':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643881836/Group_7348_vyzm6g.png'
+        break
+
+      case name === 'Karnataka':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643881932/Group_7339_l4emds.png'
+        break
+
+      case name === 'Kerala':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643882008/Group_7355_ictpzm.png'
+        break
+      case name === 'Tamil Nadu':
+        imageUrl =
+          'https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643882056/Group_7356_gl3izp.png'
+        break
+
+      default:
+        return null
+    }
+    return imageUrl
   }
 
   renderSuccessView() {
@@ -456,9 +626,8 @@ class SpecificState extends Component {
       deceased,
     } = specificStateList[0]
 
-    console.log(topDistrictsArray)
-
     const changingColor = this.getChangingColor()
+    const changingImageUrl = this.getChangingImageUrl(name)
 
     return (
       <div className="specific-state-App-container">
@@ -567,6 +736,9 @@ class SpecificState extends Component {
                 <p className="specific-state-deceased-count">{deceased}</p>
               </div>
             </button>
+          </div>
+          <div className="map-image-container">
+            <img src={changingImageUrl} alt={name} className="map-image" />
           </div>
           <div className="top-districts">
             <h1 className={changingColor}>Top Districts</h1>

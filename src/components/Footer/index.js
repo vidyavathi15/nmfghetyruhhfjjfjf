@@ -15,9 +15,18 @@ const Footer = () => (
       we stand with everyone fighting on the front lines
     </p>
     <div className="icons-container">
-      <VscGithubAlt className="icon-sizes" />
-      <FiInstagram className="icon-sizes" />
-      <FaTwitter className="icon-sizes" />
+      <a href="https://github.com/" className="github-link">
+        <VscGithubAlt className="icon-sizes" />
+      </a>
+      <a
+        className="instagram-link"
+        href="https://www.instagram.com/accounts/login/?"
+      >
+        <FiInstagram className="icon-sizes" />
+      </a>
+      <a href="https://twitter.com/i/flow/login" className="github-link">
+        <FaTwitter className="icon-sizes" />
+      </a>
     </div>
   </div>
 )

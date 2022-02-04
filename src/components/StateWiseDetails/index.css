@@ -4,18 +4,25 @@
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.16);
   border-radius: 12px;
   color: #f8fafc;
-  font-family: Roboto;
-  width: 1140px;
+  font-family: 'Roboto';
+  width: 110%;
   margin-top: 105px;
   padding: 10px;
-  margin-left: 140px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
   .state-table-header {
-    width: 700px;
+    width: 60%;
     margin-left: 20px;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .state-table-header {
+    width: 80%;
+    margin-left: 20px;
+  }
+}
+
 .state-or-ut-icon {
   margin-left: 0px;
   display: flex;
@@ -57,7 +64,7 @@
 }
 .table-heading1 {
   font-size: 16px;
-  margin-left: 40px;
+  margin-left: 20px;
 }
 .order-buttons {
   cursor: pointer;

@@ -1,9 +1,8 @@
 import {Component} from 'react'
 import {BsSearch} from 'react-icons/bs'
 import {Link} from 'react-router-dom'
-import Loader from 'react-loader-spinner'
-// import StateTable from '../StateTable'
 
+import Loader from 'react-loader-spinner'
 import {AiFillCloseCircle} from 'react-icons/ai'
 
 import CountryWideCasesCardGroup from '../CountryWideCasesCardGroup'
@@ -197,8 +196,11 @@ class Home extends Component {
     this.setState({apiStatus: apiStatusConstants.inProgress})
 
     const homeApiUrl = 'https://apis.ccbp.in/covid19-state-wise-data'
+    const options = {
+      method: 'GET',
+    }
 
-    const response = await fetch(homeApiUrl)
+    const response = await fetch(homeApiUrl, options)
 
     const data = await response.json()
 
@@ -309,7 +311,9 @@ class Home extends Component {
   }
 
   onClickCloseButton = () => {
-    this.setState(prevState => ({isNavContent: !prevState.isNavContent}))
+    console.log(true)
+
+    this.setState({isNavContent: true})
   }
 
   showOrHideNavContent = () => {
@@ -337,20 +341,20 @@ class Home extends Component {
             ''
           ) : (
             <div className="nav-bar-mobile-container">
-              <div classNme="nav-items-container">
+              <ul className="nav-items-container">
                 <Link to="/" className="nav-link">
-                  <p className="nav-mobile-home-text">Home</p>
+                  <li className="nav-mobile-home-text">Home</li>
                 </Link>
                 <Link to="/about" className="nav-link">
-                  <p className="nav-mobile-home-text">About</p>
+                  <li className="nav-mobile-home-text">About</li>
                 </Link>
-              </div>
+              </ul>
               <button
                 type="button"
                 className="close-button-mobile"
-                onClick={this.onclickCloseButton}
+                onClick={this.onClickCloseButton}
               >
-                <AiFillCloseCircle />
+                <AiFillCloseCircle className="close-icon-mobile" />
               </button>
             </div>
           )}

@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import Header from '../Header'
 
 import Footer from '../Footer'
+import FaqItem from '../FaqItem'
 
 import AboutItem from '../AboutItem'
 import './index.css'
@@ -20,6 +21,7 @@ const apiStatusConstants = {
 class About extends Component {
   state = {
     aboutData: [],
+    factsArray: [],
     showAndHideNavContent: true,
 
     apiStatus: apiStatusConstants.initial,
@@ -40,6 +42,15 @@ class About extends Component {
 
     const aboutFaqsData = fetchedAboutData.faq
 
+    const aboutFactsData = fetchedAboutData.factoids
+
+    const formattedFactsAboutData = aboutFactsData.map(each => ({
+      id: each.id,
+      banner: each.banner,
+    }))
+
+    console.log(formattedFactsAboutData)
+
     const formattedData = aboutFaqsData.map(each => ({
       answer: each.answer,
       qno: each.qno,
@@ -50,6 +61,7 @@ class About extends Component {
     this.setState({
       aboutData: formattedData,
       apiStatus: apiStatusConstants.success,
+      factsArray: formattedFactsAboutData,
     })
   }
 
@@ -66,7 +78,7 @@ class About extends Component {
   }
 
   renderSuccessView = () => {
-    const {aboutData, showAndHideNavContent} = this.state
+    const {aboutData, showAndHideNavContent, factsArray} = this.state
     return (
       <div className="about-app-container">
         <Header showOrHideNavContent={this.showOrHideNavContent} />
@@ -106,6 +118,12 @@ class About extends Component {
           <ul className="faqs-list-container" testid="faqsUnorderedList">
             {aboutData.map(each => (
               <AboutItem key={each.qno} questionDetails={each} />
+            ))}
+          </ul>
+          <p className="abut-facts-heading">Facts</p>
+          <ul className="facts-list">
+            {factsArray.map(each => (
+              <FaqItem key={each.id} faqDetails={each} />
             ))}
           </ul>
         </div>

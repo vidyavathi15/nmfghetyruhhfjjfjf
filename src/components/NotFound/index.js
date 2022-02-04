@@ -10,7 +10,7 @@ const NotFound = props => {
     <div className="not-found-container">
       <img
         className="not-found-image"
-        src="https://res.cloudinary.com/dfwdrrxpf/image/upload/v1642324717/Vector_5_smnk6x.png"
+        src="https://res.cloudinary.com/dfwdrrxpf/image/upload/v1643869761/Group_7484_ml0yze.png"
         alt="not-found-pic"
       />
 

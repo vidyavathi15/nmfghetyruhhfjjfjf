@@ -135,3 +135,15 @@
   justify-content: center;
   align-items: center;
 }
+.confirmed-bar-color {
+  background-color: #9a0e31;
+}
+.recovered-bar-color {
+  background-color: '#28a745';
+}
+.active-bar-color {
+  color: '#007bff';
+}
+.deceased-bar-color {
+  color: '#6c757d';
+}

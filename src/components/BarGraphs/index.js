@@ -176,8 +176,34 @@ class BarGraphs extends Component {
     return updatedLineData
   }
 
+  getChangingBarColors = () => {
+    const {districtsCasesCard} = this.props
+    let changeBarColorName = ''
+
+    switch (true) {
+      case districtsCasesCard === 'districtsConfirmed':
+        changeBarColorName = '#9a0e31'
+        break
+      case districtsCasesCard === 'districtsRecovered':
+        changeBarColorName = '#28a745'
+        break
+      case districtsCasesCard === 'districtsActive':
+        changeBarColorName = '#007bff'
+        break
+      case districtsCasesCard === 'districtsDeceased':
+        changeBarColorName = '#6c757d'
+        break
+
+      default:
+        return null
+    }
+    return changeBarColorName
+  }
+
   renderBarGraphData = () => {
     const descendingOrderList = this.getDescendingOrderList()
+
+    const changingBarColors = this.getChangingBarColors()
 
     const dataFormatter = number => {
       if (number > 1000) {
@@ -190,7 +216,7 @@ class BarGraphs extends Component {
       <>
         <div className="bar-graph-container">
           <BarChart
-            width={800}
+            width={650}
             height={450}
             data={descendingOrderList}
             margin={{
@@ -199,7 +225,7 @@ class BarGraphs extends Component {
           >
             <XAxis
               tick={{
-                stroke: '#9A0E31',
+                stroke: `${changingBarColors}`,
                 strokeWidth: 0.5,
                 fontSize: 15,
                 fontFamily: 'Roboto',
@@ -220,7 +246,7 @@ class BarGraphs extends Component {
             <Bar
               tickFormatter={dataFormatter}
               dataKey="count"
-              fill="#9A0E31"
+              fill={changingBarColors}
               name="count"
               radius={[10, 10, 0, 0]}
               label={{
@@ -256,7 +282,7 @@ class BarGraphs extends Component {
             <Tooltip />
             <Bar
               dataKey="count"
-              fill="#9A0E31"
+              fill={changingBarColors}
               className="bar"
               label={{position: 'top', color: '#ffffff', stroke: '#ffffff'}}
             />

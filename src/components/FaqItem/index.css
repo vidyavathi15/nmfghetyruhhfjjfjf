@@ -1,0 +1,13 @@
+.faq-item {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+.facts-name {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 32px;
+  color: #ff073a;
+}

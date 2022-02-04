@@ -8,12 +8,11 @@ const Header = props => (
   <ThemeContext.Consumer>
     {value => {
       const {isDarkTheme, toggleTheme} = value
+      const {showOrHideNavContent} = props
 
       const themeUrl = isDarkTheme
         ? 'https://assets.ccbp.in/frontend/react-js/light-theme-img.png'
         : 'https://assets.ccbp.in/frontend/react-js/dark-theme-img.png'
-
-      const {showOrHideNavContent} = props
 
       const onClickMobileHomeButton = () => {
         showOrHideNavContent()
@@ -23,10 +22,8 @@ const Header = props => (
         toggleTheme()
       }
 
-      const navBgColor = isDarkTheme ? '#ffffff' : '#1e1e30'
-
       return (
-        <nav className="header-container" background-color={navBgColor}>
+        <nav className="header-container">
           <Link to="/" className="title-link">
             <h1 className="covid-19-heading">
               COVID19
